@@ -1,0 +1,956 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roll Dice</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+         /* Reset dasar */
+    
+ * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    max-width: 100%; /* Pastikan elemen tidak melebihi viewport */
+}
+
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #202124;
+    color: #e8eaed;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    max-width: 100%; /* Pastikan elemen tidak melebihi viewport */
+    transition: opacity 0.5s ease-in-out; 
+}
+
+.fade-out {
+    animation: fadeOut 1s forwards; /* Animasi 1 detik */
+}
+
+@keyframes fadeOut {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        visibility: hidden;
+    }
+}
+
+
+
+
+
+/* Style untuk header */
+header {
+    width: 100%;
+    padding: 20px 20px;
+    background-color: #202124;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column; /* Elemen tersusun vertikal */
+    align-items: center; /* Semua elemen di tengah */
+    position: relative; /* Basis untuk positioning */
+}
+
+/* Style teks Google */
+.google-title {
+    font-size: 38px;
+    font-weight: bold;
+    color: #e8eaed;
+    font-family: Arial, sans-serif;
+    margin: 0;
+}
+
+/* Container untuk lonceng dan profil */
+.right-container {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Jarak antara ikon lonceng dan foto profil */
+    position: absolute; /* Posisi absolut */
+    right: 20px; /* Tempatkan di kanan */
+    top: 20px; /* Posisi di atas */
+}
+
+.icon-bell {
+    background: none;
+    border: none;
+    color: #ffb900; /* Warna lonceng */
+    font-size: 24px;
+    cursor: pointer;
+}
+
+/* Style untuk foto profil */
+.profile-img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%; /* Membuat gambar menjadi lingkaran */
+    object-fit: cover;
+   
+}
+
+/* Style untuk search container */
+.search-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background-color: #3c4043;
+    padding: 10px 15px;
+    border-radius: 24px;
+    width: 300px; /* Lebar search bar */
+    margin-top: 20px; /* Beri jarak dari atas */
+}
+
+.search-container input {
+    border: none;
+    background: transparent;
+    color: #e8eaed;
+    font-size: 16px;
+    outline: none;
+    flex: 1;
+}
+
+.search-container button {
+    background: none;
+    border: none;
+    color: #e8eaed;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+
+
+.search-container button:hover {
+    color: #ffffff;
+}
+
+/* Menu Tab */
+nav {
+    display: flex;
+    justify-content: center;
+    padding: 10px 0;
+    width: 100%; /* Sesuaikan dengan viewport */
+    background-color: #202124;
+    width: 100%; /* Sesuaikan lebar elemen dengan viewport */
+    margin: 0 auto; /* Pusatkan elemen */
+    max-width: 100%; /* Batasi lebar maksimum */
+    box-shadow:  rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+}
+
+
+nav a {
+    color: #e8eaed;
+    text-decoration: none;
+    margin: 0 15px;
+    font-size: 14px;
+}
+
+nav a.active {
+    border-bottom: 2px solid #8ab4f8;
+}
+
+/* Search Results */
+    main {
+        padding: 0; /* Hilangkan padding di main jika ada */
+        margin: 0 auto; /* Pusatkan elemen jika dibutuhkan */
+        width: 100%;
+    }
+    
+
+
+    .search-result1  {
+        height: 80px;
+        align-items: center;
+        display: flex;
+        margin-left: 20px;
+        font-size: 15px;
+        
+        
+      }
+.bcrs {
+
+    box-shadow:  rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+}
+
+
+
+
+    .search-result  {
+      height: 60px;
+      align-items: center;
+      display: flex;
+      margin-left: 20px;
+      
+      
+        
+    }
+
+.search-result p {
+    font-size: 20px;
+    margin-bottom: 10px;
+
+}
+
+.result-card {
+    width: 320px;
+    height: 30px;
+    background-color: #303134;
+    padding: 15px;
+    border-radius: 20px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+    margin: 50px auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative; /* Untuk posisi relatif */
+}
+
+/* Panah ke bawah */
+.arrow-down {
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-top: 10px solid #fff; /* Warna panah */
+    display: inline-block;
+}
+
+
+.result-card1 {
+    display: flex;
+    align-items: center; /* Menyamakan posisi vertikal */
+    background-color: #303134; /* Warna abu-abu tua */
+    padding: 15px;
+    border-radius: 6px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+    margin: 20px auto;
+    max-width: 600px; /* Batas lebar card */
+}
+
+.profile-img1 {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%; /* Gambar lingkaran */
+    margin-right: 15px; /* Jarak dengan teks */
+    margin-top: -100px;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+}
+
+.title {
+    font-size: 16px;
+    
+    margin: 0 0 5px 0; /* Margin bawah untuk judul */
+    justify-content: space-between; /* Menjaga spasi antara teks dan titik tiga */
+    align-items: center; /* Menyamakan posisi vertikal */
+    margin-top: -25px;
+
+
+}
+
+.title1 {
+    font-size: 16px;
+    color: #429bfa; /* Warna ungu judul */
+    margin: 0 0 5px 0; /* Margin bawah untuk judul */
+    margin-left: -50px;
+    justify-content: space-between; /* Menjaga spasi antara teks dan titik tiga */
+    align-items: center; /* Menyamakan posisi vertikal */
+
+}
+
+.description {
+    font-size: 14px;
+    color: #e8eaed; /* Warna teks abu terang */
+    margin: 0;
+    margin-left: -50px;
+}
+
+.description1 {
+    font-size: 14px;
+    color: #e8eaed; /* Warna teks abu terang */
+    margin: 0;
+    height: 40px;
+  
+}
+
+
+.menu-dots {
+    font-size: 18px; /* Ukuran titik tiga */
+    color: #e8eaed; /* Warna ikon titik tiga */
+    cursor: pointer; /* Pointer saat di-hover */
+    margin-left: 320px; /* Posisi ke paling kanan */
+    margin-top: 40px;
+}
+
+.titik {
+    margin-top: 5px;
+}
+
+.face:nth-child(1) { grid-area: 1 / 2; }
+.face:nth-child(2) { grid-area: 2 / 1; }
+.face:nth-child(3) { grid-area: 2 / 2; }
+.face:nth-child(4) { grid-area: 2 / 3; }
+.face:nth-child(5) { grid-area: 3 / 2; }
+
+  .dice-result {
+   
+    width: 100%; /* Lebar penuh */
+    background-color:#122428;
+    height: 320px; /* Tetapkan tinggi */
+
+}
+
+
+
+#dice-result {
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap; /* Membungkus elemen ke baris baru */
+    justify-content: center; /* Pusatkan elemen di tengah */
+    gap: 10px; /* Jarak antar dadu */
+    margin: 0 auto; /* Tengah sejajar kiri-kanan */
+    width: 80%; /* Lebar penuh */
+    background-color:#122428;
+    height: 320px; /* Tetapkan tinggi */
+    box-sizing: border-box;
+    padding: 10px;
+}
+
+
+@keyframes spin-dice {
+    0% {
+        transform: rotateX(0) rotateY(0);
+    }
+    25% {
+        transform: rotateX(720deg) rotateY(360deg);
+    }
+    50% {
+        transform: rotateX(1080deg) rotateY(720deg);
+    }
+    75% {
+        transform: rotateX(1440deg) rotateY(1080deg);
+    }
+    100% {
+        transform: rotateX(1800deg) rotateY(1440deg);
+    }
+}
+
+.dice-spin {
+    animation: spin-dice 1s ease-in-out;
+}
+
+
+.dice-display {
+    width: 60px;
+    height: 60px;
+    position: relative;
+    transform-style: preserve-3d;
+    transform-origin: center center;
+    transition: transform 2s cubic-bezier(0.25, 1, 0.5, 1), opacity 0s;
+    opacity: 0;
+    margin: 10px;
+}
+
+/* Face dadu */
+.face {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: #00cfff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 30px;
+    font-weight: bold;
+    color: white;
+}
+
+.dice-display.show {
+    opacity: 1;
+    animation: roll 2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+/* Menghindari dadu pertama mengikuti dadu kedua */
+.dice-display:nth-child(1) {
+    animation-delay: 0s;
+}
+
+.dice-display:nth-child(2) {
+    animation-delay: 0s; /* Memberikan sedikit delay pada dadu kedua */
+}
+
+.dice-display:nth-child(3) {
+    animation-delay: 0s; /* Memberikan delay tambahan pada dadu ketiga */
+}
+
+@keyframes roll {
+    0% {
+        transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg);
+    }
+    100% {
+        transform: rotateX(720deg) rotateY(720deg) rotateZ(720deg);
+    }
+}
+
+.front  { transform: translateZ(30px); }
+.back   { transform: rotateY(180deg) translateZ(30px); }
+.right  { transform: rotateY(90deg) translateZ(30px); }
+.left   { transform: rotateY(-90deg) translateZ(30px); }
+.top    { transform: rotateX(90deg) translateZ(30px); }
+.bottom { transform: rotateX(-90deg) translateZ(30px); }
+
+#total {
+    font-size: 20px;
+    font-weight: bold;
+    margin: 40px;
+    color: rgb(254, 251, 251);
+    margin-left: 250px;
+    margin-top: -0px;
+}
+
+.total {
+    background-color: rgb(29, 29, 29);
+    width: 150px;
+    height: 55px;
+    border-radius: 20px;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+}
+
+#total-value {
+    font-size: 40px;
+}
+
+.dice-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    perspective: 1000px;
+    margin-top: -20px;
+}
+
+.dice {
+    width: 40px;
+    height: 40px;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    transform-style: preserve-3d;
+    cursor: pointer;
+    transition: transform 0.3s ease; /* Animasi saat posisi berubah */
+}
+  
+  .dice-number {
+    font-size: 2em;
+    font-weight: bold;
+  }
+  
+  .dice-container .dice {
+    transition: transform 3s ease-in-out;
+  }
+
+.dice:hover {
+    transform: scale(1);
+}
+
+.triangle {
+    background-color: #4CAF50;
+    clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+}
+
+.square {
+    background-color: #00cfff;
+}
+
+.pentagon {
+    background-color: #b84fff;
+    clip-path: polygon(50% 0%, 100% 38%, 81% 100%, 19% 100%, 0% 38%);
+}
+
+.hexagon {
+    background-color: #f14b4b;
+    clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+}
+
+.septagon {
+    background-color: #ff0004;
+    clip-path: polygon(50% 0%, 85% 15%, 100% 50%, 85% 85%, 50% 100%, 15% 85%, 0% 50%, 15% 15%);
+}
+.bintang {
+    background-color: #f95f06; /* Warna oranye */
+    clip-path: polygon(50% 0%, 85% 15%, 100% 50%, 85% 85%, 50% 100%, 15% 85%, 0% 50%, 15% 15%);
+    
+    }
+
+.lintang {
+    
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        color: #fff; /* Warna teks putih */
+        font-size: 30px;
+        margin-left: -20px;
+    }
+
+.dice1 {
+        width: 40px;
+        height: 40px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        background-color: #444; /* Warna abu-abu gelap */
+        color: #fff; /* Warna teks putih */
+        font-weight: bold;
+        clip-path: circle(50% at 50% 50%); /* Bentuk lingkaran */
+        font-size: 40px;
+        margin-left: -20px;
+    }
+
+
+
+#roll-button {
+    background-color: #0052cc;
+    color: white;
+    border: none;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 10px 30px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px;
+    margin-left: 170px;
+}
+
+#roll-button:hover {
+    background-color: #003d99;
+}
+
+.bcdice {
+    background-color: #0052cc;
+}
+
+
+
+/* Ukuran untuk 1 dadu */
+.dice-single {
+    width: 100px;
+    height: 100px;
+    font-size: 2rem; /* Sesuaikan teks jika ada */
+    line-height: 100px;
+}
+
+/* Ukuran untuk 2 dadu */
+.dice-double {
+    width: 75px;
+    height: 75px;
+    font-size: 1.5rem; /* Sesuaikan teks jika ada */
+    line-height: 75px;
+}
+
+/* Ukuran untuk lebih dari 2 dadu */
+.dice-multiple {
+    width: 60px;
+    height: 60px;
+    font-size: 1rem; /* Sesuaikan teks jika ada */
+}
+
+
+    </style>
+</head>
+<body>
+              
+    <!-- Header Pencarian -->
+    <header>
+        <h1 class="google-title">Google</h1>
+    
+        <div class="right-container">
+            <button class="icon-bell">&#128276;</button>
+            <img src="pp.jpg" alt="Profile" class="profile-img">
+        </div>
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+        <div id="search-form">
+          <div class="search-container">
+            <button type="submit">
+              <span class="material-icons">search</span>
+            </button>
+            <input type="text" id="search-input" placeholder="Cari sesuatu di sini...">
+            <button type="button" id="clear-btn">
+              <span class="material-icons">close</span>
+            </button>
+          </div>
+        </div>
+    </header>
+<!-- Menu Tab -->
+    <nav>
+        <a href="#" class="active">Semua</a>
+        <a href="#">Shopping</a>
+        <a href="#">Gambar</a>
+        <a href="#">Video</a>
+        <a href="#">Video singkat</a>
+    </nav>
+
+    <!-- Hasil Pencarian -->
+    <main>
+
+        <div class="bcrs">
+            <div class="search-result1">
+                <p>Kiat: <span style="color: rgb(117, 172, 255);">Batasi penelusuran ini pada hasil berbahasa</span> <span style="color: rgb(162, 197, 248); font-style: oblique;" >Indonesia</span>. <span style="color: rgb(117, 172, 255);">Pelajari lebih lanjut</span> cara memfilter menurut bahasa</p>
+
+            </div>
+        </div>
+        <div class="search-result">
+            <p>Lempar dadu</p>
+        </div>
+            <div class="dice-result">
+            <div id="dice-result" class="bcdice"></div>
+        </div>
+        
+            <div id="total" class="total">
+                Total: <span id="total-value">0</span>
+            </div>
+        
+            <div class="dice-container">
+                <div class="dice triangle" data-shape="triangle" data-sides="4">4</div>
+                <div class="dice square" data-shape="square" data-sides="6">6</div>
+                <div class="dice pentagon" data-shape="pentagon" data-sides="8">8</div>
+                <div class="dice hexagon" data-shape="hexagon" data-sides="10">10</div>
+                <div class="dice septagon" data-shape="septagon" data-sides="12">12</div>
+                <div class="dice bintang" data-shape="bintang" data-sides="20">20</div>
+                <div class="dice lintang" data-shape="lintang" data-sides="6">|</div>
+                <div class="dice1 plus-minus" data-shape="circle" data-sides="6">±</div>
+                    
+            </div>
+            <button id="roll-button">Roll</button>
+        
+            <script>
+                const diceResult = document.getElementById("dice-result");
+                const totalValue = document.getElementById("total-value");
+                
+                let total = 0; // Global total value
+                let rollingCount = 0; // Track how many dice are still rolling
+                
+                function rollDice(sides) {
+    const allowedValues = [1, 2, 3, 4]; // Angka yang boleh muncul
+    const index = Math.floor(Math.random() * allowedValues.length);
+    return allowedValues[index];
+}
+
+                function updateDiceDisplay(diceElement, value) {
+                    const rotations = [
+                        [0, 0],        // 1: Depan
+                        [0, 180],      // 2: Belakang
+                        [90, 0],       // 3: Kanan
+                        [-90, 0],      // 4: Kiri
+                        [0, 90],       // 5: Atas
+                        [0, -90]       // 6: Bawah
+                    ];
+
+                    rollingCount++;
+        
+                    const faces = diceElement.querySelectorAll(".face");
+
+                    const randomZRotation = Math.floor(Math.random() * 360); // Rotasi acak sumbu Z
+                    const [rotationX, rotationY] = rotations[(value - 1) % 6];
+
+                    diceElement.classList.remove("show");
+                    
+                    setTimeout(() => {
+                        // Durasi animasi
+                        diceElement.classList.add("show");
+                        faces.forEach(face => face.textContent = '');
+                        
+                        const displayValue = (value - 1) % 20 + 1;
+                        setTimeout(() => {
+                            faces.forEach((face) => {
+                                face.textContent = displayValue;
+                            }); // Hapus teks dari semua sisi
+                        }, 2000);
+                            
+                        
+                            rollingCount--;
+        
+                        diceElement.dataset.value = value; // Perbarui nilai dadu
+        
+                        recalculateTotal();  
+                    }, 1);
+                }
+                
+                // Fungsi untuk mendapatkan sisi yang terlihat berdasarkan rotasi
+                function getVisibleFaceIndex(rotationX, rotationY) {
+                    const angleX = Math.abs(rotationX % 360);
+                    const angleY = Math.abs(rotationY % 360);
+                
+                    // Tentukan sisi yang terlihat berdasarkan sudut rotasi X dan Y
+                    if (angleX >= 0 && angleX < 90) {
+                        return 0; // Sisi depan
+                    } else if (angleX >= 90 && angleX < 180) {
+                        return 1; // Sisi belakang
+                    } else if (angleY >= 0 && angleY < 90) {
+                        return 2; // Sisi kanan
+                    } else if (angleY >= 90 && angleY < 180) {
+                        return 3; // Sisi kiri
+                    } else if (angleX >= 180 && angleX < 270) {
+                        return 4; // Sisi atas
+                    } else {
+                        return 5; // Sisi bawah
+                    }
+                }
+                
+                function addDice(sides) {
+                    const newDice = document.createElement("div");
+                    newDice.classList.add("dice-display");
+                    newDice.dataset.sides = sides;
+                    newDice.innerHTML = ` 
+                        <div class="face front"></div>
+                        <div class="face back"></div>
+                        <div class="face right"></div>
+                        <div class="face left"></div>
+                        <div class="face top"></div>
+                        <div class="face bottom"></div>
+                    `;
+                
+                    diceResult.appendChild(newDice);
+                
+                    setTimeout(() => newDice.classList.add("show"), 100);
+                    // Roll dice immediately and update total
+                    const value = rollDice(sides);
+                    updateDiceDisplay(newDice, value);
+
+                    newDice.addEventListener("click", () => {
+                        const newValue = rollDice(sides);
+                        newDice.dataset.value = newValue;
+                        updateDiceDisplay(newDice, newValue);
+                    });
+                
+                // Hitung jumlah elemen anak dalam diceResult
+const diceCount = diceResult.children.length;
+
+// Reset semua posisi sebelumnya
+const allDice = diceResult.children;
+for (let i = 0; i < allDice.length; i++) {
+    allDice[i].classList.remove("dice-single", "dice-double", "dice-row");
+    allDice[i].style.transform = ""; // Reset posisi
+}
+
+// Tambahkan class dan posisi berdasarkan jumlah dadu
+if (diceCount === 1) {
+    // Jika hanya ada 1 dadu, letakkan di tengah
+    allDice[0].classList.add("dice-single");
+    allDice[0].style.transform = "translateY(0px)"; // Tetap di tengah
+} else if (diceCount === 2) {
+    // Jika ada 2 dadu, posisikan dadu pertama di bawah sedikit dan dadu kedua naik
+    allDice[0].classList.add("dice-double");
+    allDice[0].style.transform = "translateY(20px)"; // Dadu pertama sedikit ke bawah
+    allDice[1].classList.add("dice-double");
+    allDice[1].style.transform = "translateY(-20px)"; // Dadu kedua naik
+} else if (diceCount >= 3) {
+    // Jika ada 3 atau lebih dadu, posisikan semua dadu sebaris
+    for (let i = 0; i < diceCount; i++) {
+        allDice[i].classList.add("dice-row");
+        if (i === 0) {
+            allDice[i].style.transform = "translateY(-20px)"; // Dadu pertama naik
+        } else if (i === 1) {
+            allDice[i].style.transform = "translateY(-40px)"; // Dadu kedua naik lebih tinggi
+        } else {
+            allDice[i].style.transform = "translateY(0px)"; // Dadu ketiga dan seterusnya tetap rata
+        }
+    }
+}
+
+
+
+
+                    
+                }
+                
+                
+                
+                function recalculateTotal() {
+                    total = Array.from(document.querySelectorAll(".dice-display")).reduce((acc, dice) => {
+                        return acc + parseInt(dice.dataset.value || "0", 10);
+                    }, 0);
+                    console.log(total);
+                    
+                    totalValue.textContent = total; // Update total after all dice stop rolling
+                }
+                
+                document.querySelectorAll(".dice").forEach(diceButton => {
+                    diceButton.addEventListener("click", () => {
+                        const sides = parseInt(diceButton.dataset.sides, 10);
+                        addDice(sides);
+                    });
+                });
+                
+                document.getElementById("roll-button").addEventListener("click", () => {
+                    const diceDisplays = document.querySelectorAll(".dice-display");
+                
+                    total = 0; // Reset total
+                
+                    diceDisplays.forEach(dice => {
+                        const sides = parseInt(dice.dataset.sides || "6", 10);
+                        const newValue = rollDice(sides);
+                        console.log(dice);
+                        updateDiceDisplay(dice, newValue);
+                        dice.dataset.value = newValue; // Update dice value
+                    });
+                
+                    // Reset the display total to 0 during rolling
+                    totalValue.textContent = 0;
+                });
+                
+                document.getElementById('search-form').addEventListener('submit', function (e) {
+                    e.preventDefault(); // Mencegah pengiriman form secara default
+                
+                    // Ambil nilai dari input pencarian
+                    const searchValue = document.getElementById('search-input').value;
+                
+                    // Simpan nilai pencarian ke localStorage
+                    localStorage.setItem('lastSearch', searchValue);
+                
+                    // Tambahkan efek menghilang ke elemen body atau elemen utama
+                    const body = document.querySelector('body');
+                    body.classList.add('fade-out');
+                
+                    // Tunggu 1 detik lalu refresh halaman
+                    setTimeout(() => {
+                        location.reload(); // Refresh halaman
+                    }, 1000); // 1000 milidetik = 1 detik
+                });
+                
+                // Saat halaman dimuat ulang, isi kembali kolom pencarian dari localStorage
+                window.addEventListener('DOMContentLoaded', function () {
+                    const savedSearch = localStorage.getItem('lastSearch');
+                    if (savedSearch) {
+                        document.getElementById('search-input').value = savedSearch;
+                    }
+                });
+                             
+            </script>          
+        
+        <div class="result-card">
+            <div class="arrow-down"></div>
+        </div>
+
+        <div class="result-card1">
+            <img src="cr.png" alt="Logo" class="profile-img1">
+            <div class="content">
+                <div class="titik" >
+                <div >
+                    <span class="menu-dots">⋮</span>
+                </div>
+            </div>
+                    <h2 class="title">Calculator.net</h2>
+                   
+               
+                <p class="description1">
+                    https://www.calculator.net/dice-roller.html
+                </p>
+                
+                    <h2 class="title1">Virtual Dice Roller</h2>
+                
+                <p class="description">
+                    This virtual dice roller can have any number of faces and can generate random numbers simulating a dice roll based on the number of faces and dice.
+                </p>
+            </div>
+        </div>
+        </div>
+        
+
+
+        <div class="result-card1">
+            <img src="st.jpg" alt="Logo" class="profile-img1">
+            <div class="content">
+                <div class="titik" >
+                <div >
+                    <span class="menu-dots">⋮</span>
+                </div>
+            </div>
+                    <h2 class="title">Online Stopwatch</h2>
+                   
+               
+                <p class="description1">
+                    https://www.online-stopwatch.com/chance-games/roll-a-dice/
+                </p>
+                
+                    <h2 class="title1">Random Dice! </h2>
+                
+                <p class="description">
+                    An Online Random Dice! Choose how many dice you need - from 1 to 10 and let them roll! Easy to use - with a random result every time! Try more Chance Games!
+                </p>
+            </div>
+        </div>
+        </div>
+
+        <div class="result-card1">
+            <img src="roll.png" alt="Logo" class="profile-img1">
+            <div class="content">
+                <div class="titik" >
+                <div >
+                    <span class="menu-dots">⋮</span>
+                </div>
+            </div>
+                    <h2 class="title">Roll a Die</h2>
+                   
+               
+                <p class="description1">
+                    https://rolladie.net/
+                </p>
+                
+                    <h2 class="title1">Roll a Die</h2>
+                
+                <p class="description">
+                    A dice app with start and stop to give you way more options that you will need for your dice games. Multiple screens, totals, history and more.
+                    ‎D20 · ‎Roll 2 Dice · ‎Roll 6 Dice · ‎Roll 4 Dice
+                </p>
+            </div>
+        </div>
+        </div>
+
+
+
+
+        <div class="result-card1">
+            <img src="R.png" alt="Logo" class="profile-img1">
+            <div class="content">
+                <div class="titik" >
+                <div >
+                    <span class="menu-dots">⋮</span>
+                </div>
+            </div>
+                    <h2 class="title">Random.org</h2>
+                   
+               
+                <p class="description1">
+                    https://www.random.org/dice/
+                </p>
+                
+                    <h2 class="title1">RANDOM.ORG-dice_Roller</h2>
+                
+                <p class="description">
+                    This page allows you to roll virtual dice using true randomness, which for many purposes is better than the pseudo-random number algorithms typically used ...
+                </p>
+            </div>
+        </div>
+        </div>
+    </div>
+</main>
+</body>
+</html>
